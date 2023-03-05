@@ -225,3 +225,7 @@ $RECYCLE.BIN/
 
 
 # End of https://www.gitignore.io/api/r,java,linux,macos,python,windows
+
+
+# Kate temp files
+*.kate-swp
