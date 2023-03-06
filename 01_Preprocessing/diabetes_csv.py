@@ -12,12 +12,18 @@ no servidor.
 import pandas as pd
 from sklearn.neighbors import KNeighborsClassifier
 import requests
+from random import randint
 
 print('\n - Lendo o arquivo com o dataset sobre diabetes')
 data = pd.read_csv('diabetes_dataset.csv')
 
 
 ##### TRATAMENTO DOS DADOS #####
+
+def boundedRandomGen(x, min_val, max_val):
+    if pd.isna(x):
+        return randint(min_val, max_val)
+    return x;
 
 # Insulina
 data['Insulin'] = data['Insulin'].apply(lambda x: boundedRandomGen(x, 50, 350))
@@ -39,6 +45,8 @@ data['Glucose'] = data['Glucose'].apply(lambda x: boundedRandomGen(x, 45, 200))
 
 # Elimina NaN remanescentes
 data = data.dropna()
+
+###############################
 
 
 # Criando X and y par ao algorítmo de aprendizagem de máquina.\
