@@ -16,6 +16,31 @@ import requests
 print('\n - Lendo o arquivo com o dataset sobre diabetes')
 data = pd.read_csv('diabetes_dataset.csv')
 
+
+##### TRATAMENTO DOS DADOS #####
+
+# Insulina
+data['Insulin'] = data['Insulin'].apply(lambda x: boundedRandomGen(x, 50, 350))
+
+# Espessura da pele
+data['SkinThickness'] = data['SkinThickness'].apply(lambda x: boundedRandomGen(x, 10, 50))
+
+# Pressão sanguínea
+data['BloodPressure'] = data['BloodPressure'].apply(lambda x: boundedRandomGen(x, 45, 110))
+data = data[data.BloodPressure >= 40]
+data = data[data.BloodPressure <= 125]
+
+# IMC
+data['BMI'] = data['BMI'].apply(lambda x: boundedRandomGen(x, 20, 50))
+data = data[data.BMI <= 50]
+
+# Glucose
+data['Glucose'] = data['Glucose'].apply(lambda x: boundedRandomGen(x, 45, 200))
+
+# Elimina NaN remanescentes
+data = data.dropna()
+
+
 # Criando X and y par ao algorítmo de aprendizagem de máquina.\
 print(' - Criando X e y para o algoritmo de aprendizagem a partir do arquivo diabetes_dataset')
 # Caso queira modificar as colunas consideradas basta algera o array a seguir.
@@ -39,7 +64,7 @@ y_pred = neigh.predict(data_app)
 URL = "https://aydanomachado.com/mlclass/01_Preprocessing.php"
 
 #TODO Substituir pela sua chave aqui
-DEV_KEY = "COLOCAR_SUA_KEY_AQUI"
+DEV_KEY = "Asimov Enforcer"
 
 # json para ser enviado para o servidor
 data = {'dev_key':DEV_KEY,
